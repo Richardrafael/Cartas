@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Interativa (Versão Corrigida)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        /* Cores e bordas baseadas na sua imagem */
+        :root {
+            --envelope-color: #FCEECB;
+            --border-color: #1a1a1a;
+            --border-width: 4px;
+            --shadow-color: #1a1a1a;
+        }
+
+        /* Animação de abrir com a classe .open */
+        .envelope-wrapper.open .flap {
+            transform: rotateX(100deg);
+                      display: none;
+        }
+
+        .envelope-wrapper.open .letter {
+          transform: translateY(-50px); /* Puxa a carta para fora do "bolso" */
+        }
+        
+        /* Transições suaves para a animação */
+        .flap {
+            transition: transform 0.5s ease-in-out;
+            transform-origin: top; /* A aba gira a partir do topo */
+        }
+
+        .letter {
+            transition: transform 0.6s 0.1s ease-out; /* A carta se move com um leve atraso */
+        }
+    </style>
+</head>
+<body class="bg-gray-200 flex items-center justify-center min-h-screen">
+
+    <div class="envelope-wrapper relative w-80 h-52 cursor-pointer">
+        
+        <div class="letter absolute top-[2px] left-0 right-0 mx-auto w-[95%] h-52 bg-white p-6 rounded-lg shadow-lg z-10">
+            <h2 class="font-bold text-xl mb-4 text-gray-800">Agora sim!</h2>
+            <p class="text-gray-700">
+                O texto agora sai de dentro da carta de forma correta.
+                As linhas extras foram removidas para um visual mais limpo, igual ao da sua imagem.
+            </p>
+            <p class="text-right mt-6 font-serif italic text-gray-600">- Richard Soares</p>
+        </div>
+
+        <div class="envelope-front absolute bottom-0 left-0 w-full h-[55%] bg-[var(--envelope-color)] rounded-b-xl z-20"
+             style="border: var(--border-width) solid var(--border-color); border-top: none; box-shadow: 4px 4px 0px 0px var(--shadow-color);">
+             <div class="absolute top-0 left-0 w-full h-full bg-[var(--envelope-color)]" 
+                  style="clip-path: polygon(0 22%, 50% 0, 100% 22%, 100% 100%, 0 100%);">
+             </div>
+        </div>
+
+        <div class="flap absolute top-0 left-0 w-full h-1/2 rounded-t-xl z-30" 
+             style="border-left: var(--border-width) solid var(--border-color); border-right: var(--border-width) solid var(--border-color); border-top: var(--border-width) solid var(--border-color); box-shadow: 0px -2px 0px 1px var(--shadow-color) inset;">
+            <div class="w-full h-full bg-[var(--envelope-color)] rounded-t-lg"></div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // A função de clique continua a mesma: simples e eficaz
+            $('.envelope-wrapper').click(function() {
+                $(this).toggleClass('open');
+            });
+        });
+    </script>
+
+</body>
+</html>
